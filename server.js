@@ -9,7 +9,7 @@ const fs = require("fs");
 const { randomUUID } = require("crypto");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const uploadDir = path.join(__dirname, "uploads");
 const outputDir = path.join(__dirname, "compressed");
@@ -255,6 +255,6 @@ app.use((error, req, res, next) => {
     next(error);
 });
 
-app.listen(PORT, () => {
-    console.log(`Compressify server running at http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Compressify server running on port ${PORT}`);
 });
