@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090b12" />
+  <title>Compressify — Compress smarter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Compressify home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3M8 12h8m-4-4v8"/></svg></span>
+      <span>compressify<span class="brand-dot">.</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="active" href="#compressor">Compressor</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#features">Features</a>
+    </nav>
+    <a class="topbar-cta" href="#compressor">Start compressing <span>↗</span></a>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">☰</button>
+  </header>
+
+  <main>
+    <section class="hero" id="compressor">
+      <div class="eyebrow"><span class="eyebrow-pulse"></span> SIMPLE. FAST. SECURE.</div>
+      <h1>Make files smaller.<br><span>Keep life simple.</span></h1>
+      <p class="hero-copy">Compress images, PDFs and files in one place. Less storage, easier sharing, and no complicated setup.</p>
+
+      <section class="workspace glass-panel" aria-label="File compression workspace">
+        <div class="workspace-heading">
+          <div>
+            <div class="section-kicker">YOUR WORKSPACE</div>
+            <h2>File compressor</h2>
+          </div>
+          <div class="secure-label"><span>◆</span> Private processing</div>
+        </div>
+
+        <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Choose a file or drag it here">
+          <input type="file" id="fileInput" hidden />
+          <div class="upload-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          </div>
+          <h3>Drop your file here</h3>
+          <p>or <button type="button" class="browse-link" id="browseButton">browse files</button> from your device</p>
+          <div class="upload-meta"><span>Images</span><i></i><span>PDF documents</span><i></i><span>Any file as ZIP</span></div>
+        </div>
+
+        <div class="selected-file hidden" id="selectedFile">
+          <div class="file-type-icon" id="fileIcon">FILE</div>
+          <div class="file-info">
+            <strong id="fileName">filename.pdf</strong>
+            <span id="fileSize">0 KB</span>
+          </div>
+          <button class="icon-button" id="removeFile" aria-label="Remove selected file" title="Remove file">×</button>
+        </div>
+
+        <div class="settings-row">
+          <div class="setting-group">
+            <label for="compressionType">Compression type</label>
+            <select id="compressionType">
+              <option value="auto">Automatic detection</option>
+              <option value="image">Image compression</option>
+              <option value="pdf">PDF optimization</option>
+              <option value="zip">Create ZIP archive</option>
+            </select>
+          </div>
+          <div class="setting-group">
+            <label for="compressionLevel">Compression level</label>
+            <select id="compressionLevel">
+              <option value="balanced">Balanced</option>
+              <option value="high">High compression</option>
+              <option value="maximum">Maximum compression</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-error hidden" id="formError" role="alert"></div>
+        <button class="compress-button" id="compressButton" disabled>
+          <span class="button-label">Compress file</span>
+          <span class="button-arrow">→</span>
+        </button>
+        <p class="workspace-note"><span class="lock-icon">▣</span> Your files are processed by the server and should be deleted after processing.</p>
+
+        <div class="progress-area hidden" id="progressArea" aria-live="polite">
+          <div class="progress-top"><span id="progressText">Preparing your file…</span><strong id="progressPercent">0%</strong></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <p>Keep this tab open while your file is being processed.</p>
+        </div>
+
+        <div class="result-area hidden" id="resultArea" aria-live="polite">
+          <div class="result-heading"><span class="success-icon">✓</span><div><strong>Compression complete</strong><span>Your file is ready to download.</span></div></div>
+          <div class="stats-grid">
+            <div class="stat-card"><span>Original size</span><strong id="originalSize">—</strong></div>
+            <div class="stat-card"><span>Compressed size</span><strong id="compressedSize">—</strong></div>
+            <div class="stat-card highlight-stat"><span>Space saved</span><strong id="savedPercent">—</strong></div>
+          </div>
+          <div class="savings-track"><div id="savingsFill"></div></div>
+          <a class="download-button" id="downloadButton" href="#" download>Download compressed file <span>↓</span></a>
+          <button class="start-again" id="startAgain">Compress another file</button>
+          <p class="result-disclaimer" id="resultDisclaimer"></p>
+        </div>
+      </section>
+
+      <div class="trust-row">
+        <div><span class="trust-check">✓</span> Easy to use</div>
+        <div><span class="trust-check">✓</span> No account required</div>
+        <div><span class="trust-check">✓</span> Clear size comparison</div>
+      </div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="section-kicker centered">HOW IT WORKS</div>
+      <h2>Three steps. That's it.</h2>
+      <p class="section-description">A straightforward workflow from upload to download.</p>
+      <div class="steps-grid">
+        <article class="step-card"><div class="step-number">01</div><div class="step-icon">↥</div><h3>Upload a file</h3><p>Choose an image, PDF, or a file you want to package into a ZIP archive.</p></article>
+        <article class="step-card"><div class="step-number">02</div><div class="step-icon">✳</div><h3>Choose your settings</h3><p>Let Compressify detect the file type or select the compression method yourself.</p></article>
+        <article class="step-card"><div class="step-number">03</div><div class="step-icon">↓</div><h3>Download the result</h3><p>Compare file sizes, see the reduction, and download your processed file.</p></article>
+      </div>
+    </section>
+
+    <section class="features-section" id="features">
+      <div class="features-copy"><div class="section-kicker">BUILT FOR EVERYDAY FILES</div><h2>One simple place<br>for your files.</h2><p>Compressify brings common file operations into one clean workspace. The right processing method is selected for the file you upload.</p></div>
+      <div class="feature-list">
+        <div class="feature-item"><span class="feature-symbol purple">▧</span><div><h3>Image compression</h3><p>Reduce image file size with adjustable quality settings.</p></div></div>
+        <div class="feature-item"><span class="feature-symbol blue">▤</span><div><h3>PDF optimization</h3><p>Process PDF documents and prepare a smaller or optimized output where possible.</p></div></div>
+        <div class="feature-item"><span class="feature-symbol pink">▣</span><div><h3>ZIP archiving</h3><p>Bundle files using lossless ZIP compression for convenient storage and sharing.</p></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><a class="brand footer-brand" href="#"><span class="brand-mark small-mark">C</span><span>compressify<span class="brand-dot">.</span></span></a><span>Compress smarter. Store more.</span><span>© 2026 Compressify</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
